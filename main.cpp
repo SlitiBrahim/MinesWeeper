@@ -14,26 +14,12 @@ int main() {
 //    vector<Box*> boxes;
 //    boxes.push_back(new EmptyBox);
 //    boxes.push_back(new MineBox);
-//
-//    boxes[0]->hello();
-//    boxes[1]->hello();
 
-    int xy[2];
-    int nbMines;
+    int params[3] = {9, 9, 5};
 
-    for (int i = 0; i < 2; ++i) {
-        do {
-            cout << "How many " <<  ((i == 0) ? "rows" : "cols") << ": ";
-            cin >> xy[i];
-        } while (xy[i] <= 5 || xy[i] > 50);
-    }
+    // Game::askBoardParams(params);
 
-    do {
-        cout << "How many mines: ";
-        cin >> nbMines;
-    } while (nbMines < 0 || nbMines >= min(xy[0], xy[1]));
-
-    Game game(xy[0], xy[1], nbMines);
+    Game game(params[0], params[1], params[2]);
 
     game.play();
 

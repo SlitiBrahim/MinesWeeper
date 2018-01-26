@@ -9,14 +9,14 @@
 
 using namespace std;
 
-EmptyBox::EmptyBox() : Box() {}
+EmptyBox::EmptyBox() : Box(), isIndicated(false) {}
 
-void EmptyBox::hello() const {
-    cout << "Heloooo from emptyBox " << endl;
-}
-
-string EmptyBox::display() const {
+std::string EmptyBox::getRepresentation() const {
     // pour l'instant
 
     return " ";
+}
+
+bool EmptyBox::getIsIndicated() const {
+    return isIndicated;
 }

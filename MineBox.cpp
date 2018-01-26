@@ -9,6 +9,6 @@ using namespace std;
 
 MineBox::MineBox() : Box() {}
 
-void MineBox::hello() const {
-    cout << "Hello from mine box !!!" << endl;
+std::string MineBox::getRepresentation() const {
+    return "X";
 }

@@ -12,14 +12,15 @@ class Game {
 private:
 
     Board board;
-    bool isGameOver;
+    bool isGameOver = checkGameOver();
 
-    void welcome() const;
-    void displayBoard() const;
+    bool checkGameOver();
 
 public:
 
+    static void askBoardParams(int * arr);
     Game(int rows, int cols, int nbMines);
+    static bool randomBoolean();
     void play();
 };
 

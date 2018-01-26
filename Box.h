@@ -12,12 +12,8 @@
  */
 class Box {
 
-protected:
-
-    virtual void hello() const = 0; // pure virtual method
-
 public:
-    virtual std::string display() const = 0;   // pure virtual method
+    virtual std::string getRepresentation() const = 0; // pure virtual method
 };
 
 

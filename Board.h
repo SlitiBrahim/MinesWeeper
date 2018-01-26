@@ -20,14 +20,14 @@ private:
 
 public:
 
-    Board();
     Board(int rows, int cols, int nbMines);
 
     int getNbRows() const;
     int getNbCols() const;
+    int getNbMines() const;
     std::vector<std::vector<Box*>> getBoxes() const;
 
-    //void generate();
+    void generate();
     void display() const;
 };
 

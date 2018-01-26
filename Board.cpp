@@ -3,14 +3,13 @@
 //
 
 #include <iostream>
+#include <random>
 #include "Board.h"
 #include "EmptyBox.h"
 #include "MineBox.h"
-#include <vector>
+#include "Game.h"
 
 using namespace std;
-
-Board::Board() : nbRows(8), nbCols(8), bounds{0, nbRows}, boxes(8*8) {}
 
 Board::Board(int rows, int cols, int nbMines) : nbRows(rows), nbCols(cols), nbMines(nbMines), bounds{0, rows}
 {
@@ -31,6 +30,10 @@ int Board::getNbRows() const {
     return nbRows;
 }
 
+int Board::getNbMines() const {
+    return nbMines;
+}
+
 std::vector<std::vector<Box*>> Board::getBoxes() const {
     return boxes;
 }
@@ -38,13 +41,34 @@ std::vector<std::vector<Box*>> Board::getBoxes() const {
 void Board::display() const {
     for (int i = 0; i < nbRows; i++) {
         for (int j = 0; j < nbCols; j++) {
-            cout << "[" << boxes[i][j]->display() << "]";
+            cout << "[" << boxes[i][j]->getRepresentation() << "]";
         }
         cout << endl;
     }
 }
 
 
-// void Board::generate() {
+void Board::generate() {
 
-//}
+    int nbMinesTmp = nbMines;
+    bool randomBool;
+
+    srand((int)time(0));
+
+    for (int i = 0; i < nbRows; i++) {
+        for (int j = 0; j < nbCols; ++j) {
+            if (nbMinesTmp > 0) {
+                randomBool = Game::randomBoolean();
+                if (randomBool) {
+                    delete boxes[i][j];
+                    boxes[i][j] = new MineBox;
+                    nbMinesTmp--;
+                }
+            }
+            else {
+                break;
+            }
+        }
+    }
+
+}

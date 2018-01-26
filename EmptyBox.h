@@ -9,11 +9,15 @@
 
 class EmptyBox : public Box {
 
+private:
+
+    bool isIndicated;
+
 public:
 
     EmptyBox();
-    void hello() const override;
-    std::string display() const override;
+    std::string getRepresentation() const override;
+    bool getIsIndicated() const;
 };
 
 

@@ -5,6 +5,7 @@
 #ifndef MINESWEEPER_MINE_H
 #define MINESWEEPER_MINE_H
 
+#include <string>
 #include "Box.h"
 
 class MineBox : public Box {
@@ -12,7 +13,7 @@ class MineBox : public Box {
 public:
 
     MineBox();
-    void hello() const override;
+    std::string getRepresentation() const override;
 };
 
 
