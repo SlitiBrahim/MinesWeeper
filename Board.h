@@ -19,7 +19,7 @@ private:
     int nbMines;
     std::vector<std::vector<Box*>> boxes;   //2d vector of box pointers
 
-    Box* getRandomBox() const;
+    // Box* getRandomBox() const;
 
 public:
 

@@ -14,6 +14,8 @@ class Box {
 
 public:
     virtual std::string getRepresentation() const = 0; // pure virtual method
+
+    virtual bool isMineBox() const = 0;
 };
 
 

@@ -56,26 +56,34 @@ void Board::display() const {
     }
 }
 
-Box* Board::getRandomBox() const {
-    int rdRow = 0, rdCol = 0;
-
-    rdRow = rand() % rowBounds[1] + rowBounds[0];
-    rdCol = rand() % colBounds[1] + colBounds[0];
-
-    return boxes[rdRow][rdCol];
-}
+//Box* Board::getRandomBox() const {
+//    int rdRow = 0, rdCol = 0;
+//
+//    rdRow = rand() % rowBounds[1] + rowBounds[0];
+//    rdCol = rand() % colBounds[1] + colBounds[0];
+//
+//    return boxes[rdRow][rdCol];
+//}
 
 void Board::generate() {
 
+    int rdRow = 0, rdCol = 0;
     Box* randBox = nullptr;
 
     srand((int)time(0));
     for (int i = 0; i < nbMines; ++i) {
         do {
-            randBox = getRandomBox();
-        } while (0);
+            // randBox = getRandomBox();
 
-        delete randBox;
-        randBox = new MineBox;
+            rdRow = rand() % (rowBounds[1] + 1);
+            rdCol = rand() % (colBounds[1] + 1);
+
+        } while (boxes[rdRow][rdCol]->isMineBox());
+
+        delete boxes[rdRow][rdCol];
+        boxes[rdRow][rdCol] = new MineBox;
+
+//        delete randBox;
+//        randBox = new MineBox;
     }
 }

@@ -14,6 +14,7 @@ public:
 
     MineBox();
     std::string getRepresentation() const override;
+    bool isMineBox() const override;
 };
 
 

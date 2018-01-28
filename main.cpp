@@ -15,7 +15,7 @@ int main() {
 //    boxes.push_back(new EmptyBox);
 //    boxes.push_back(new MineBox);
 
-    int params[3] = {9, 9, 5};
+    int params[3] = {5, 5, 24};
 
     // Game::askBoardParams(params);
 

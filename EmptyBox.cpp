@@ -20,3 +20,7 @@ std::string EmptyBox::getRepresentation() const {
 bool EmptyBox::getIsIndicated() const {
     return isIndicated;
 }
+
+bool EmptyBox::isMineBox() const {
+    return false;
+}

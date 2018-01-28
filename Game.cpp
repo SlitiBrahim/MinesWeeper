@@ -15,7 +15,7 @@ void Game::askBoardParams(int* params) {
         do {
             cout << "How many " <<  ((i == 0) ? "rows" : "cols") << ": ";
             cin >> params[i];
-        } while (params[i] <= 5 || params[i] > 50);
+        } while (params[i] < 5 || params[i] > 50);
     }
 
     do {

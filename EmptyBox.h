@@ -18,6 +18,7 @@ public:
     EmptyBox();
     std::string getRepresentation() const override;
     bool getIsIndicated() const;
+    bool isMineBox() const override;
 };
 
 
