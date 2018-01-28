@@ -7,7 +7,7 @@
 
 using namespace std;
 
-void Game::askBoardParams(int * params) {
+void Game::askBoardParams(int* params) {
 
     cout << "Welcome to MinesWeeper" << endl << endl;
 
@@ -55,9 +55,9 @@ bool Game::randomBoolean() {
 void Game::play() {
     board.display();
 
-    board.generate();
-
     cout << "Avant Generation" << endl << endl;
+
+    board.generate();
 
     board.display();
 

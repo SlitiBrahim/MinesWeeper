@@ -14,13 +14,17 @@ private:
 
     int nbRows;
     int nbCols;
-    int bounds[2];
+    int rowBounds[2];
+    int colBounds[2];
     int nbMines;
-    std::vector<std::vector<Box*>> boxes;   //2d vector
+    std::vector<std::vector<Box*>> boxes;   //2d vector of box pointers
+
+    Box* getRandomBox() const;
 
 public:
 
     Board(int rows, int cols, int nbMines);
+    ~Board();
 
     int getNbRows() const;
     int getNbCols() const;

@@ -11,15 +11,24 @@
 
 using namespace std;
 
-Board::Board(int rows, int cols, int nbMines) : nbRows(rows), nbCols(cols), nbMines(nbMines), bounds{0, rows}
+Board::Board(int rows, int cols, int nbMines) : nbRows(rows), nbCols(cols), nbMines(nbMines), rowBounds{0, rows-1}, colBounds{0, cols-1}
 {
+    // allocating boxes vector
     for (int i = 0; i < nbRows; ++i) {
-        boxes.emplace_back();   // call vector<Box*> constructor  without making copy like push_back() would
+        boxes.emplace_back();   // call vector<Box*> constructor without making copy like push_back() would
         for (int j = 0; j < nbCols; ++j) {
             boxes[i].push_back(new EmptyBox);
         }
     }
 
+}
+
+Board::~Board() {
+    for (int i = 0; i < nbRows; ++i) {
+        for (int j = 0; j < nbCols; ++j) {
+            delete boxes[i][j];
+        }
+    }
 }
 
 int Board::getNbCols() const {
@@ -47,28 +56,26 @@ void Board::display() const {
     }
 }
 
+Box* Board::getRandomBox() const {
+    int rdRow = 0, rdCol = 0;
+
+    rdRow = rand() % rowBounds[1] + rowBounds[0];
+    rdCol = rand() % colBounds[1] + colBounds[0];
+
+    return boxes[rdRow][rdCol];
+}
 
 void Board::generate() {
 
-    int nbMinesTmp = nbMines;
-    bool randomBool;
+    Box* randBox = nullptr;
 
     srand((int)time(0));
+    for (int i = 0; i < nbMines; ++i) {
+        do {
+            randBox = getRandomBox();
+        } while (0);
 
-    for (int i = 0; i < nbRows; i++) {
-        for (int j = 0; j < nbCols; ++j) {
-            if (nbMinesTmp > 0) {
-                randomBool = Game::randomBoolean();
-                if (randomBool) {
-                    delete boxes[i][j];
-                    boxes[i][j] = new MineBox;
-                    nbMinesTmp--;
-                }
-            }
-            else {
-                break;
-            }
-        }
+        delete randBox;
+        randBox = new MineBox;
     }
-
 }
