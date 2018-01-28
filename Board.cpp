@@ -11,8 +11,15 @@
 
 using namespace std;
 
-Board::Board(int rows, int cols, int nbMines) : nbRows(rows), nbCols(cols), nbMines(nbMines), rowBounds{0, rows-1}, colBounds{0, cols-1}
+Board::Board(int rows, int cols, int nbMines) : nbRows(rows), nbCols(cols), nbMines(nbMines)
 {
+
+    rowBounds.push_back(0);
+    rowBounds.push_back(rows-1);
+
+    colBounds.push_back(0);
+    colBounds.push_back(cols-1);
+
     // allocating boxes vector
     for (int i = 0; i < nbRows; ++i) {
         boxes.emplace_back();   // call vector<Box*> constructor without making copy like push_back() would
@@ -37,6 +44,14 @@ int Board::getNbCols() const {
 
 int Board::getNbRows() const {
     return nbRows;
+}
+
+vector<int> Board::getRowBounds() const {
+    return rowBounds;
+}
+
+vector<int> Board::getColBounds() const {
+    return colBounds;
 }
 
 int Board::getNbMines() const {

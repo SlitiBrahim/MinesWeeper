@@ -14,12 +14,10 @@ private:
 
     int nbRows;
     int nbCols;
-    int rowBounds[2];
-    int colBounds[2];
+    std::vector<int> rowBounds;
+    std::vector<int> colBounds;
     int nbMines;
     std::vector<std::vector<Box*>> boxes;   //2d vector of box pointers
-
-    // Box* getRandomBox() const;
 
 public:
 
@@ -28,6 +26,8 @@ public:
 
     int getNbRows() const;
     int getNbCols() const;
+    std::vector<int> getRowBounds() const;
+    std::vector<int> getColBounds() const;
     int getNbMines() const;
     std::vector<std::vector<Box*>> getBoxes() const;
 

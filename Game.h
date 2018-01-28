@@ -15,6 +15,7 @@ private:
     bool isGameOver = checkGameOver();
 
     bool checkGameOver();
+    void askCoordinates(int* params) const;
 
 public:
 

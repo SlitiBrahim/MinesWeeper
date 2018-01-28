@@ -44,22 +44,41 @@ bool Game::checkGameOver() {
     return false;
 }
 
-bool Game::randomBoolean() {
+void Game::askCoordinates(int* coord) const {
+    int x = 0, y = 0;
 
-    //srand((int)time(0));
-    int randomNb = rand() % 10 + 1; // between 1 and 10
+    cout << "Indicate the next box without mine" << endl;
 
-    return randomNb <= 5;
+    do {
+        cout << "Row number [" << board.getRowBounds()[0] << "-" << board.getRowBounds()[1] << "] ? ";
+        cin >> x;
+    } while (x < board.getRowBounds()[0] || x > board.getRowBounds()[1]);
+
+    do {
+        cout << "Column number [" << board.getColBounds()[0] << "-" << board.getColBounds()[1] << "] ? ";
+        cin >> y;
+    } while (y < board.getColBounds()[0] || y > board.getColBounds()[1]);
+
+    coord[0] = x, coord[1] = y;
 }
 
 void Game::play() {
     board.display();
 
-    cout << "Avant Generation" << endl << endl;
+    // cout << "Avant Generation" << endl << endl;
 
     board.generate();
 
     board.display();
+
+    int coord[2] = {0};
+    askCoordinates(coord);
+
+    if (board.getBoxes()[coord[0]][coord[1]]->isMineBox()) {
+        cout << "YOU LOOSE" << endl;
+        board.display();
+        isGameOver = true;
+    }
 
 //    while (!isGameOver) {
 //        cout << "hello" << endl;
