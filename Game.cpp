@@ -26,25 +26,40 @@ void Game::askBoardParams(int* params) {
     cout << endl;
 }
 
-Game::Game(int rows, int cols, int nbMines) : board(rows, cols, nbMines), isGameOver(false) {}
+Game::Game(int rows, int cols, int nbMines) : board(rows, cols, nbMines), isGameOver(false), selectedCoord() {}
 
-bool Game::checkGameOver() {
+bool Game::hasWon() const {
 
-    int notIndicated = 0;
+    return false;
 
-    for (int i = 0; i < board.getNbRows(); i++) {
-        for (int j = 0; j < board.getNbCols(); j++) {
-            if (notIndicated >= board.getNbMines()) {
-                return true;
-            }
-            // if board.getBoxes[i][j] is type of EmptyBox => notIndicated++
-        }
+    // pour + tard
+//    int notIndicated = 0;
+//
+//    for (int i = 0; i < board.getNbRows(); i++) {
+//        for (int j = 0; j < board.getNbCols(); j++) {
+//            if (notIndicated >= board.getNbMines()) {
+//                return true;
+//            }
+//            // if board.getBoxes[i][j] is type of EmptyBox => notIndicated++
+//        }
+//    }
+//
+//    return false;
+}
+
+bool Game::hasLost() const {
+
+    if (board.getBoxes()[selectedCoord.getX()][selectedCoord.getY()]->isMineBox()) {
+        cout << "YOU LOOSE" << endl;
+        board.display();
+
+        return true;
     }
 
     return false;
 }
 
-void Game::askCoordinates(int* coord) const {
+void Game::askUserToSetCoordinates() {
     int x = 0, y = 0;
 
     cout << "Indicate the next box without mine" << endl;
@@ -59,30 +74,28 @@ void Game::askCoordinates(int* coord) const {
         cin >> y;
     } while (y < board.getColBounds()[0] || y > board.getColBounds()[1]);
 
-    coord[0] = x, coord[1] = y;
+    selectedCoord.setX(x);
+    selectedCoord.setY(y);
 }
 
 void Game::play() {
+
     board.display();
 
-    // cout << "Avant Generation" << endl << endl;
-
+    // pour Test; à enlever par la suite
+    cout << "Avant Generation" << endl << endl;
     board.generate();
-
     board.display();
 
-    int coord[2] = {0};
-    askCoordinates(coord);
 
-    if (board.getBoxes()[coord[0]][coord[1]]->isMineBox()) {
-        cout << "YOU LOOSE" << endl;
+    do {
+        askUserToSetCoordinates();
+
         board.display();
-        isGameOver = true;
-    }
 
-//    while (!isGameOver) {
-//        cout << "hello" << endl;
-//    }
+        isGameOver = hasLost() || hasWon();
+    } while (!(isGameOver));
 
 
+    cout << "Thanks for playing this game" << endl;
 }

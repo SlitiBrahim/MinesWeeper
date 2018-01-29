@@ -63,12 +63,14 @@ std::vector<std::vector<Box*>> Board::getBoxes() const {
 }
 
 void Board::display() const {
+    cout << endl;
     for (int i = 0; i < nbRows; i++) {
         for (int j = 0; j < nbCols; j++) {
             cout << "[" << boxes[i][j]->getRepresentation() << "]";
         }
         cout << endl;
     }
+    cout << endl;
 }
 
 //Box* Board::getRandomBox() const {

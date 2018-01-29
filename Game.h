@@ -6,22 +6,24 @@
 #define MINESWEEPER_GAME_H
 
 #include "Board.h"
+#include "Coordinate.h"
 
 class Game {
 
 private:
 
     Board board;
-    bool isGameOver = checkGameOver();
+    bool isGameOver;
+    Coordinate selectedCoord;
 
-    bool checkGameOver();
-    void askCoordinates(int* params) const;
+    void askUserToSetCoordinates();
+    bool hasWon() const;
+    bool hasLost() const;
 
 public:
 
     static void askBoardParams(int * arr);
     Game(int rows, int cols, int nbMines);
-    static bool randomBoolean();
     void play();
 };
 
