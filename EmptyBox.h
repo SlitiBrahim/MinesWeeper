@@ -12,13 +12,17 @@ class EmptyBox : public Box {
 private:
 
     bool isIndicated;
+    bool isTouched; //A touched box is a box selected by user or a box touched by the propagation of an other user selected box
 
 public:
 
     EmptyBox();
     std::string getRepresentation() const override;
-    bool getIsIndicated() const;
     bool isMineBox() const override;
+    bool getIsIndicated() const;
+    void setIsIndicated(bool a);
+    bool getIsTouched() const override;
+    void setIsTouched(bool a);
 };
 
 

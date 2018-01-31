@@ -62,11 +62,28 @@ std::vector<std::vector<Box*>> Board::getBoxes() const {
     return boxes;
 }
 
-void Board::display() const {
+void Board::display(bool verbose) const {
     cout << endl;
     for (int i = 0; i < nbRows; i++) {
         for (int j = 0; j < nbCols; j++) {
-            cout << "[" << boxes[i][j]->getRepresentation() << "]";
+            cout << "[";
+
+            // cout << ((!verbose) ? " " : boxes[i][j]->getRepresentation());
+
+             // PSEUDO CODE, à GARDER quand trouver solution instance of
+            if (!verbose) {
+                if (!boxes[i][j]->isMineBox()) {    // is an EmptyBox
+                    cout << (boxes[i][j]->getIsTouched() ? boxes[i][j]->getRepresentation() : " ");
+                }
+                else {
+                    cout << " ";
+                }
+            }
+            else {
+                cout << boxes[i][j]->getRepresentation();
+            }
+
+            cout << "]";
         }
         cout << endl;
     }
@@ -85,7 +102,7 @@ void Board::display() const {
 void Board::generate() {
 
     int rdRow = 0, rdCol = 0;
-    Box* randBox = nullptr;
+    Box** randBox = nullptr;
 
     srand((int)time(0));
     for (int i = 0; i < nbMines; ++i) {
@@ -97,10 +114,9 @@ void Board::generate() {
 
         } while (boxes[rdRow][rdCol]->isMineBox());
 
-        delete boxes[rdRow][rdCol];
-        boxes[rdRow][rdCol] = new MineBox;
+        randBox = &boxes[rdRow][rdCol];
 
-//        delete randBox;
-//        randBox = new MineBox;
+        delete *randBox;
+        *randBox = new MineBox;
     }
 }

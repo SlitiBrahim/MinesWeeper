@@ -16,3 +16,11 @@ bool MineBox::isMineBox() const {
 std::string MineBox::getRepresentation() const {
     return "X";
 }
+
+bool MineBox::getIsTouched() const {
+    return isTouched;
+}
+
+void MineBox::setIsTouched(bool a) {
+    isTouched = a;
+}

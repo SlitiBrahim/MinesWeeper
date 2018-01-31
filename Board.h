@@ -32,7 +32,7 @@ public:
     std::vector<std::vector<Box*>> getBoxes() const;
 
     void generate();
-    void display() const;
+    void display(bool verbose) const;
 };
 
 

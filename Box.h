@@ -13,9 +13,12 @@
 class Box {
 
 public:
-    virtual std::string getRepresentation() const = 0; // pure virtual method
 
+    virtual std::string getRepresentation() const = 0; // pure virtual method
     virtual bool isMineBox() const = 0;
+
+    virtual bool getIsTouched() const = 0;
+    virtual void setIsTouched(bool a) = 0;
 };
 
 

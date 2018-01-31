@@ -10,11 +10,18 @@
 
 class MineBox : public Box {
 
+private:
+
+    //A touched box is a box selected by user or a box touched by the propagation of an other user selected box
+    bool isTouched;
+
 public:
 
     MineBox();
     std::string getRepresentation() const override;
     bool isMineBox() const override;
+    bool getIsTouched() const override;
+    void setIsTouched(bool a) override;
 };
 
 

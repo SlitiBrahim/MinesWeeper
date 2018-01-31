@@ -9,7 +9,7 @@ using namespace std;
 
 void Game::askBoardParams(int* params) {
 
-    cout << "Welcome to MinesWeeper" << endl << endl;
+    cout << "== Welcome to MinesWeeper ==" << endl << endl;
 
     for (int i = 0; i < 2; ++i) {
         do {
@@ -50,8 +50,8 @@ bool Game::hasWon() const {
 bool Game::hasLost() const {
 
     if (board.getBoxes()[selectedCoord.getX()][selectedCoord.getY()]->isMineBox()) {
-        cout << "YOU LOOSE" << endl;
-        board.display();
+        cout << "\tYOU LOOSE" << endl;
+        board.display(true);
 
         return true;
     }
@@ -76,26 +76,23 @@ void Game::askUserToSetCoordinates() {
 
     selectedCoord.setX(x);
     selectedCoord.setY(y);
+
+    board.getBoxes()[selectedCoord.getX()][selectedCoord.getY()]->setIsTouched(true);
 }
 
 void Game::play() {
 
-    board.display();
-
-    // pour Test; à enlever par la suite
-    cout << "Avant Generation" << endl << endl;
     board.generate();
-    board.display();
-
+    board.display(true);  //change to false -> now is just for debug
 
     do {
         askUserToSetCoordinates();
 
-        board.display();
+        board.display(false);
 
         isGameOver = hasLost() || hasWon();
     } while (!(isGameOver));
 
 
-    cout << "Thanks for playing this game" << endl;
+    cout << "== Thanks for playing this game ==" << endl;
 }
