@@ -62,25 +62,88 @@ std::vector<std::vector<Box*>> Board::getBoxes() const {
     return boxes;
 }
 
+/**
+ * Désolé pour cet "algorithme" très sale, quelques lacunes en algorithmiquee, et manque de café
+ */
+int Board::getNbNeighbors(Coordinate coord) const {
+
+    // code
+    int result = 0;
+    int left = 0, right = 0, top = -1, bottom = 0;
+    int rowMin = 0, rowMax = 0, colMin = 0, colMax = 0;
+    //left = coord.getX() - 1;    // -1: because only adjacent boxes
+
+    left = coord.getX();
+    right = nbCols-1 - coord.getX();  // -1 because indexes start at 0
+    top = coord.getY();
+    bottom = nbRows-1 - coord.getY();
+
+
+    //min = ((left > 0) ? coord.getX() - 1 : 1);
+    rowMin = coord.getY();
+    rowMax = coord.getY();
+    colMin = coord.getX();
+
+    // LEFT and RIGHT
+    if (left > 0) {
+        //au moins une case libre à droite
+        if (right >= 1) {
+            colMin -= 1;
+        } else colMin -= 2;
+        colMax = colMin + 2;
+    }
+    else {
+        colMax = colMin + 2;
+    }
+    for (int l = colMin; l <= colMax; ++l) {
+        if (boxes[coord.getY()][l]->isMineBox()) result++;
+    }
+
+    // TOP and BOTTOM
+    if (top > 0) {
+
+        if (bottom > 0) {
+            rowMin -= 1;
+            //  calculer ligne du bas
+            for (int k = colMin; k <= colMax; ++k) {
+                if (boxes[coord.getY()+1][k]->isMineBox()) result++;
+            }
+        }
+        else {
+            rowMin -= 2;
+        }
+    } else {
+
+        rowMin += 1;
+        rowMax = rowMin + 2;
+    }
+    for (int row = rowMin; row < rowMax; row++) {
+        for (int col = colMin ; col <= colMax; col++) {
+            if (boxes[row][col]->isMineBox()) result++;
+        }
+    }
+
+    return result;
+}
+
 void Board::display(bool verbose) const {
     cout << endl;
     for (int i = 0; i < nbRows; i++) {
         for (int j = 0; j < nbCols; j++) {
             cout << "[";
 
-            // cout << ((!verbose) ? " " : boxes[i][j]->getRepresentation());
-
-             // PSEUDO CODE, à GARDER quand trouver solution instance of
             if (!verbose) {
-                if (!boxes[i][j]->isMineBox()) {    // is an EmptyBox
-                    cout << (boxes[i][j]->getIsTouched() ? boxes[i][j]->getRepresentation() : " ");
+
+                // is an EmptyBox and was touched
+                if (!(boxes[i][j]->isMineBox()) && (boxes[i][j]->getIsTouched())) {
+                    cout << boxes[i][j]->getRepresentation(boxes[i][j]->getNeighbors());
                 }
                 else {
                     cout << " ";
                 }
             }
             else {
-                cout << boxes[i][j]->getRepresentation();
+                cout << boxes[i][j]->getRepresentation(0);
             }
 
             cout << "]";
@@ -89,15 +152,6 @@ void Board::display(bool verbose) const {
     }
     cout << endl;
 }
-
-//Box* Board::getRandomBox() const {
-//    int rdRow = 0, rdCol = 0;
-//
-//    rdRow = rand() % rowBounds[1] + rowBounds[0];
-//    rdCol = rand() % colBounds[1] + colBounds[0];
-//
-//    return boxes[rdRow][rdCol];
-//}
 
 void Board::generate() {
 

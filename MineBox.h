@@ -18,10 +18,16 @@ private:
 public:
 
     MineBox();
-    std::string getRepresentation() const override;
+    std::string getRepresentation(int neighbors) const override;
     bool isMineBox() const override;
     bool getIsTouched() const override;
     void setIsTouched(bool a) override;
+
+    bool getIsIndicated() const override;
+    void setIsIndicated(bool a) override;
+
+    int getNeighbors() const override;
+    void setNeighbors(int neighbors) override;
 };
 
 

@@ -11,10 +11,15 @@ using namespace std;
 
 EmptyBox::EmptyBox() : Box(), isIndicated(false), isTouched(false) {}
 
-std::string EmptyBox::getRepresentation() const {
-    // pour l'instant
+std::string EmptyBox::getRepresentation(int neighbors) const {
 
-    return "T";
+    if (isTouched) {
+        return (neighbors >= 1) ? to_string(neighbors) : "-";
+    }
+    else {
+        return " ";
+    }
+
 }
 
 bool EmptyBox::isMineBox() const {
@@ -35,5 +40,13 @@ bool EmptyBox::getIsTouched() const {
 
 void EmptyBox::setIsTouched(bool a) {
     isTouched = a;
+}
+
+int EmptyBox::getNeighbors() const {
+    return neighbors;
+}
+
+void EmptyBox::setNeighbors(int neighbors) {
+    this->neighbors = neighbors;
 }
 

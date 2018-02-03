@@ -11,9 +11,9 @@ using namespace std;
 
 int main() {
 
-    int params[3] = {5, 5, 10};
+    int params[3] = {5, 5, 2};
 
-    Game::askBoardParams(params);
+    // Game::askBoardParams(params);
 
     Game game(params[0], params[1], params[2]);
 

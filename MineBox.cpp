@@ -13,7 +13,7 @@ bool MineBox::isMineBox() const {
     return true;
 }
 
-std::string MineBox::getRepresentation() const {
+std::string MineBox::getRepresentation(int neighbors) const {
     return "X";
 }
 
@@ -24,3 +24,15 @@ bool MineBox::getIsTouched() const {
 void MineBox::setIsTouched(bool a) {
     isTouched = a;
 }
+
+void MineBox::setNeighbors(int neighbors) {
+    // no code for this class
+}
+
+int MineBox::getNeighbors() const {
+    // no code for this class
+}
+
+bool MineBox::getIsIndicated() const {}
+
+void MineBox::setIsIndicated(bool a) {}

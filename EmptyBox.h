@@ -16,13 +16,18 @@ private:
 
 public:
 
+    int neighbors;
+
     EmptyBox();
-    std::string getRepresentation() const override;
+    std::string getRepresentation(int neighbors) const override;
     bool isMineBox() const override;
-    bool getIsIndicated() const;
-    void setIsIndicated(bool a);
+    bool getIsIndicated() const override;
+    void setIsIndicated(bool a) override;
     bool getIsTouched() const override;
-    void setIsTouched(bool a);
+    void setIsTouched(bool a) override;
+
+    int getNeighbors() const override;
+    void setNeighbors(int neighbors) override;
 };
 
 

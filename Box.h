@@ -14,11 +14,19 @@ class Box {
 
 public:
 
-    virtual std::string getRepresentation() const = 0; // pure virtual method
+    int neighbors = 0;
+
+    virtual std::string getRepresentation(int neighbors) const = 0; // pure virtual method
     virtual bool isMineBox() const = 0;
 
     virtual bool getIsTouched() const = 0;
     virtual void setIsTouched(bool a) = 0;
+
+    virtual bool getIsIndicated() const = 0;
+    virtual void setIsIndicated(bool a) = 0;
+
+    virtual int getNeighbors() const = 0;
+    virtual void setNeighbors(int neighbors) = 0;
 };
 
 

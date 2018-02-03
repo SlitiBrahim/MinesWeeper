@@ -7,6 +7,7 @@
 
 #include <vector>
 #include "Box.h"
+#include "Coordinate.h"
 
 class Board {
 
@@ -30,6 +31,7 @@ public:
     std::vector<int> getColBounds() const;
     int getNbMines() const;
     std::vector<std::vector<Box*>> getBoxes() const;
+    int getNbNeighbors(Coordinate coord) const;
 
     void generate();
     void display(bool verbose) const;

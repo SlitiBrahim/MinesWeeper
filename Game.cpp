@@ -30,26 +30,28 @@ Game::Game(int rows, int cols, int nbMines) : board(rows, cols, nbMines), isGame
 
 bool Game::hasWon() const {
 
-    return false;
-
     // pour + tard
-//    int notIndicated = 0;
-//
-//    for (int i = 0; i < board.getNbRows(); i++) {
-//        for (int j = 0; j < board.getNbCols(); j++) {
-//            if (notIndicated >= board.getNbMines()) {
-//                return true;
-//            }
-//            // if board.getBoxes[i][j] is type of EmptyBox => notIndicated++
-//        }
-//    }
-//
-//    return false;
+    int notIndicated = 0;
+
+    for (int i = 0; i < board.getNbRows(); i++) {
+        for (int j = 0; j < board.getNbCols(); j++) {
+            if (!board.getBoxes()[i][j]->isMineBox() && board.getBoxes()[i][j]->getIsIndicated()) notIndicated++;
+
+            if (notIndicated >= board.getNbMines()) {
+                cout << "\tYOU WIN :)" << endl;
+                board.display(true);
+
+                return true;
+            }
+        }
+    }
+
+    return false;
 }
 
 bool Game::hasLost() const {
 
-    if (board.getBoxes()[selectedCoord.getX()][selectedCoord.getY()]->isMineBox()) {
+    if (board.getBoxes()[selectedCoord.getY()][selectedCoord.getX()]->isMineBox()) {
         cout << "\tYOU LOOSE" << endl;
         board.display(true);
 
@@ -66,27 +68,36 @@ void Game::askUserToSetCoordinates() {
 
     do {
         cout << "Row number [" << board.getRowBounds()[0] << "-" << board.getRowBounds()[1] << "] ? ";
-        cin >> x;
-    } while (x < board.getRowBounds()[0] || x > board.getRowBounds()[1]);
+        cin >> y;
+    } while (y < board.getRowBounds()[0] || y > board.getRowBounds()[1]);
 
     do {
         cout << "Column number [" << board.getColBounds()[0] << "-" << board.getColBounds()[1] << "] ? ";
-        cin >> y;
-    } while (y < board.getColBounds()[0] || y > board.getColBounds()[1]);
+        cin >> x;
+    } while (x < board.getColBounds()[0] || x > board.getColBounds()[1]);
 
-    selectedCoord.setX(x);
     selectedCoord.setY(y);
+    selectedCoord.setX(x);
 
-    board.getBoxes()[selectedCoord.getX()][selectedCoord.getY()]->setIsTouched(true);
+    board.getBoxes()[selectedCoord.getY()][selectedCoord.getX()]->setIsTouched(true);
 }
 
 void Game::play() {
 
     board.generate();
     board.display(true);  //change to false -> now is just for debug
+    int neighbors = 0;
 
     do {
         askUserToSetCoordinates();
+
+        // Empty box Selected
+        if (!board.getBoxes()[selectedCoord.getY()][selectedCoord.getX()]->isMineBox()) {
+            neighbors = board.getNbNeighbors(selectedCoord);
+            // mettre condition -> setIndicated ici
+            if (neighbors == 0) board.getBoxes()[selectedCoord.getY()][selectedCoord.getX()]->setIsIndicated(true);
+            board.getBoxes()[selectedCoord.getY()][selectedCoord.getX()]->setNeighbors(neighbors);
+        }
 
         board.display(false);
 
