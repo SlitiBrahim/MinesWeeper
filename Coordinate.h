@@ -10,8 +10,8 @@ class Coordinate {
 
 private:
 
-    int x;
     int y;
+    int x;
 
 public:
 

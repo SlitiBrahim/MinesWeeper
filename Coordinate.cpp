@@ -4,16 +4,17 @@
 
 #include "Coordinate.h"
 
-Coordinate::Coordinate() : x(0), y(0) {}
-Coordinate::Coordinate(int x, int y) : x(x), y(y) {}
+Coordinate::Coordinate() : y(0), x(0) {}
+Coordinate::Coordinate(int y, int x) : y(y), x(x) {}
 
-int Coordinate::getX() const { return x; }
 int Coordinate::getY() const { return y; }
+int Coordinate::getX() const { return x; }
+
+void Coordinate::setY(int y) {
+    this->y = y;
+}
 
 void Coordinate::setX(int x) {
     this->x = x;
 }
 
-void Coordinate::setY(int y) {
-    this->y = y;
-}

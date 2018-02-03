@@ -9,7 +9,7 @@
 
 using namespace std;
 
-EmptyBox::EmptyBox() : Box(), isIndicated(false), isTouched(false) {}
+EmptyBox::EmptyBox() : Box(), isIndicated(false), isTouched(false), neighbors(0) {}
 
 std::string EmptyBox::getRepresentation(int neighbors) const {
 

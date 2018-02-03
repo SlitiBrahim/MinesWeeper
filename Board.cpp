@@ -63,7 +63,7 @@ std::vector<std::vector<Box*>> Board::getBoxes() const {
 }
 
 /**
- * Désolé pour cet "algorithme" très sale, quelques lacunes en algorithmiquee, et manque de café
+ * Désolé pour cet "algorithme" très sale, quelques lacunes en algorithmique, et un manque de café
  */
 int Board::getNbNeighbors(Coordinate coord) const {
 
@@ -124,6 +124,48 @@ int Board::getNbNeighbors(Coordinate coord) const {
     }
 
     return result;
+}
+
+bool Board::propagation(Coordinate coord) {
+
+    Coordinate initCoord(coord.getY(), coord.getX());
+    Coordinate tmpCoord(coord.getY(), coord.getX());
+
+    for (int i = tmpCoord.getY(); i < nbRows; i++) {
+        for (int j = initCoord.getX(); j < nbCols; j++) {
+            tmpCoord.setY(i); tmpCoord.setX(j);
+
+            int neighbors = getNbNeighbors(tmpCoord);
+            boxes[i][j]->setNeighbors(neighbors);
+
+            if (neighbors > 0) {
+                boxes[tmpCoord.getY()][tmpCoord.getX()]->setIsTouched(true);
+                break;
+            }
+
+            boxes[tmpCoord.getY()][tmpCoord.getX()]->setIsIndicated(true);
+            boxes[tmpCoord.getY()][tmpCoord.getX()]->setIsTouched(true);
+        }
+    }
+
+//    while (!boxes[i][j]->isMineBox()) {
+//
+//        if (boxes[tmpCoord.getY()][tmpCoord.getX()]->isMineBox()) break;
+//
+//        int neighbors = getNbNeighbors(tmpCoord);
+//
+//        if (neighbors == 0) {
+//            boxes[tmpCoord.getY()][tmpCoord.getX()]->setIsIndicated(true);
+//            boxes[tmpCoord.getY()][tmpCoord.getX()]->setIsTouched(true);
+//            boxes[tmpCoord.getY()][tmpCoord.getX()]->setNeighbors(neighbors);
+//        } else {
+//            boxes[tmpCoord.getY()][tmpCoord.getX()]->setIsTouched(true);
+//            boxes[tmpCoord.getY()][tmpCoord.getX()]->setNeighbors(neighbors);
+//            break;
+//        }
+//
+//        tmpCoord.setY(tmpCoord.getY()); tmpCoord.setX(tmpCoord.getX()+1);
+//    }
 }
 
 void Board::display(bool verbose) const {

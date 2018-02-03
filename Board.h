@@ -35,6 +35,7 @@ public:
 
     void generate();
     void display(bool verbose) const;
+    bool propagation(Coordinate coord);
 };
 
 

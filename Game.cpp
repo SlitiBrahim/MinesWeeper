@@ -30,12 +30,14 @@ Game::Game(int rows, int cols, int nbMines) : board(rows, cols, nbMines), isGame
 
 bool Game::hasWon() const {
 
+    return false;   // il faut que la propagation fonctionne au complet mais voici le code fonctionnel
+
     // pour + tard
     int notIndicated = 0;
 
     for (int i = 0; i < board.getNbRows(); i++) {
         for (int j = 0; j < board.getNbCols(); j++) {
-            if (!board.getBoxes()[i][j]->isMineBox() && board.getBoxes()[i][j]->getIsIndicated()) notIndicated++;
+            if (!board.getBoxes()[i][j]->isMineBox() && !board.getBoxes()[i][j]->getIsIndicated()) notIndicated++;
 
             if (notIndicated >= board.getNbMines()) {
                 cout << "\tYOU WIN :)" << endl;
@@ -94,9 +96,14 @@ void Game::play() {
         // Empty box Selected
         if (!board.getBoxes()[selectedCoord.getY()][selectedCoord.getX()]->isMineBox()) {
             neighbors = board.getNbNeighbors(selectedCoord);
-            // mettre condition -> setIndicated ici
-            if (neighbors == 0) board.getBoxes()[selectedCoord.getY()][selectedCoord.getX()]->setIsIndicated(true);
-            board.getBoxes()[selectedCoord.getY()][selectedCoord.getX()]->setNeighbors(neighbors);
+            if (neighbors == 0) {
+                board.getBoxes()[selectedCoord.getY()][selectedCoord.getX()]->setIsIndicated(true);
+
+                board.propagation(selectedCoord);
+            }
+            else {
+                board.getBoxes()[selectedCoord.getY()][selectedCoord.getX()]->setNeighbors(neighbors);
+            }
         }
 
         board.display(false);
